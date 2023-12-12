@@ -22,7 +22,15 @@ def contact_new(request):
     return render(request, 'create.html', {'form': form})
 
 def contact_edit(request, pk):
-    pass
+    contact = get_object_or_404(Contact, pk=pk)
+    if request.method == 'POST':
+        form = ContactForm(request.POST, instance=contact)
+        if form.is_valid():
+            form.save()
+            return redirect('contact_list')
+    else:
+        form = ContactForm(instance=contact)
+    return render(request, 'edit.html', {'form': form, 'contact': contact})
 
 def contact_delete(request, pk):
     pass
