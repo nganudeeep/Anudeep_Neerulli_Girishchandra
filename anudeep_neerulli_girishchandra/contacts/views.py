@@ -7,7 +7,9 @@ def contact_list(request):
     return render(request, 'list.html', {'contacts': contacts})
 
 def contact_detail(request, pk):
-    pass
+    contact = get_object_or_404(Contact, pk=pk)
+    return render(request, 'detail.html', {'contact': contact})
+
 
 def contact_new(request):
     if request.method == 'POST':
